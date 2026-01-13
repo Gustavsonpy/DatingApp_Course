@@ -1,5 +1,6 @@
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,8 @@ namespace API.Controllers
             return users;
         }
 
-        [HttpGet("/members/{Id}")]
+        [Authorize]
+        [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetMemberById(string Id)
         {
             var user = await context.Users.FindAsync(Id);
